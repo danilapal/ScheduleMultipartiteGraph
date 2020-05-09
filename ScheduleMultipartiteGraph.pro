@@ -23,8 +23,9 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
-
+###SUBDIRS = \ test/TestForTests/TestForTests.pro
 SOURCES += \
+    exceptions/graphexception.cpp \
     gui/dialogCabinetWindow.cpp \
     gui/dialogGroupWindow.cpp \
     gui/dialogLessonTimeWindow.cpp \
@@ -50,6 +51,7 @@ SOURCES += \
 
 
 HEADERS += \
+    exceptions/graphexception.h \
     gui/dialogCabinetWindow.h \
     gui/dialogGroupWindow.h \
     gui/dialogLessonTimeWindow.h \
@@ -81,3 +83,4 @@ FORMS += \
 
 # Default rules for deployment.
  INSTALLS += target
+

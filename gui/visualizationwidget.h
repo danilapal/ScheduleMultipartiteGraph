@@ -6,6 +6,7 @@
 #include <QPushButton>
 #include <QSlider>
 #include <QGroupBox>
+#include <QBoxLayout>
 class GraphWidget;
 
 //
@@ -18,14 +19,19 @@ class VisualizationWidget : public QWidget
     Q_OBJECT
 public:
     explicit VisualizationWidget(QWidget *parent = nullptr);
+    void paintEvent(QPaintEvent *event) override;
 
 signals:
 
 public slots:
     void resetGraphWidget();
 private:
+    //виджет визуализации графа
     GraphWidget *graphWidget;
+    //меню
     QGroupBox *menu;
+    QBoxLayout *visualGraphLayout;
+    //функция по созданию меню
     QGroupBox *createMenu();
 };
 

@@ -21,136 +21,136 @@ MainWindow::MainWindow(QWidget *parent) :
     QMainWindow(parent),
     ui(new Ui::MainWindow)
 {
-      ui->setupUi(this);
-      this->initStorage();
-      this->loadReps();
+    ui->setupUi(this);
+    this->initStorage();
+    this->loadReps();
 
-      receiveDay[1]="Понедельник";
-      receiveDay[2]="Вторник";
-      receiveDay[3]="Среда";
-      receiveDay[4]="Четверг";
-      receiveDay[5]="Пятница";
-      receiveDay[6]="Суббота";
+    receiveDay[1]="Понедельник";
+    receiveDay[2]="Вторник";
+    receiveDay[3]="Среда";
+    receiveDay[4]="Четверг";
+    receiveDay[5]="Пятница";
+    receiveDay[6]="Суббота";
 
-      //Инициализация моделей QTableView
-      list_s = new QStringList();
-      list_gr = new QStringList();
-      list_cb=new QStringList();
-      list_tm = new QStringList();
+    //Инициализация моделей QTableView
+    list_s = new QStringList();
+    list_gr = new QStringList();
+    list_cb=new QStringList();
+    list_tm = new QStringList();
 
-      //Начальная визуализация QTableView
-      //Таблица "Предметы"
-      subjectModel = new StringListModel(*list_s);
-      ui->subject_table->setContextMenuPolicy(Qt::CustomContextMenu);
+    //Начальная визуализация QTableView
+    //Таблица "Предметы"
+    subjectModel = new StringListModel(*list_s);
+    ui->subject_table->setContextMenuPolicy(Qt::CustomContextMenu);
 
-      //Таблица "Группы"
-      groupModel=new StringListModel(*list_gr);
-      ui->group_table->setContextMenuPolicy(Qt::CustomContextMenu);
+    //Таблица "Группы"
+    groupModel=new StringListModel(*list_gr);
+    ui->group_table->setContextMenuPolicy(Qt::CustomContextMenu);
 
-      //Таблица Кабинеты
-      cabinetModel=new StringListModel(*list_cb);
-      ui->cabinets_table->setContextMenuPolicy(Qt::CustomContextMenu);
+    //Таблица Кабинеты
+    cabinetModel=new StringListModel(*list_cb);
+    ui->cabinets_table->setContextMenuPolicy(Qt::CustomContextMenu);
 
-      //Таблица время
-      timeModel = new StringListModel(*list_tm);
-      ui->time_table->setContextMenuPolicy(Qt::CustomContextMenu);
+    //Таблица время
+    timeModel = new StringListModel(*list_tm);
+    ui->time_table->setContextMenuPolicy(Qt::CustomContextMenu);
 
-      //Инициализация диалоговых окон
-      dialogEmptyRow = new DialogWindowEmptyRow();
-      dialogEmptyRow->resize(300,100);
+    //Инициализация диалоговых окон
+    dialogEmptyRow = new DialogWindowEmptyRow();
+    dialogEmptyRow->resize(300,100);
 
-      dialogConfrimEdit = new DialogWindowConfirmEditRow();
-      dialogConfrimEdit->resize(300,100);
+    dialogConfrimEdit = new DialogWindowConfirmEditRow();
+    dialogConfrimEdit->resize(300,100);
 
-      dialogSubject = new DialogSubjectWindow();
-      dialogGroup = new DialogGroupWindow();
-      dialogCabinet = new DialogCabinetWindow();
-      dialogLessonTime = new DialogLessonTimeWindow();
+    dialogSubject = new DialogSubjectWindow();
+    dialogGroup = new DialogGroupWindow();
+    dialogCabinet = new DialogCabinetWindow();
+    dialogLessonTime = new DialogLessonTimeWindow();
 
-      //Таблица Предметы
-      connect(dialogSubject, SIGNAL(sendDataSubject(Subject)), this, SLOT(receiveDataSubject(Subject)));
+    //Таблица Предметы
+    connect(dialogSubject, SIGNAL(sendDataSubject(Subject)), this, SLOT(receiveDataSubject(Subject)));
 
-      connect(dialogSubject, SIGNAL(sendEditDataSubject(Subject)), this,SLOT(receiveEditDataSubject(Subject)));
+    connect(dialogSubject, SIGNAL(sendEditDataSubject(Subject)), this,SLOT(receiveEditDataSubject(Subject)));
 
-      connect(ui->subject_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customSubjectMenuRequested(QPoint)));
-     //Таблица Группы
-      connect(dialogGroup, SIGNAL(sendDataGroup(GroupStudents)), this, SLOT(receiveDataGroup(GroupStudents)));
+    connect(ui->subject_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customSubjectMenuRequested(QPoint)));
+    //Таблица Группы
+    connect(dialogGroup, SIGNAL(sendDataGroup(GroupStudents)), this, SLOT(receiveDataGroup(GroupStudents)));
 
-      connect(dialogGroup, SIGNAL(sendEditDataGroup(GroupStudents)), this,SLOT(receiveEditDataGroup(GroupStudents)));
+    connect(dialogGroup, SIGNAL(sendEditDataGroup(GroupStudents)), this,SLOT(receiveEditDataGroup(GroupStudents)));
 
-      connect(ui->group_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customGroupMenuRequested(QPoint)));
-     //Таблица Кабинеты
-      connect(dialogCabinet, SIGNAL(sendDataCabinet(Cabinet)), this, SLOT(receiveDataCabinet(Cabinet)));
+    connect(ui->group_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customGroupMenuRequested(QPoint)));
+    //Таблица Кабинеты
+    connect(dialogCabinet, SIGNAL(sendDataCabinet(Cabinet)), this, SLOT(receiveDataCabinet(Cabinet)));
 
-      connect(dialogCabinet, SIGNAL(sendEditDataCabinet(Cabinet)), this,SLOT(receiveEditDataCabinet(Cabinet)));
+    connect(dialogCabinet, SIGNAL(sendEditDataCabinet(Cabinet)), this,SLOT(receiveEditDataCabinet(Cabinet)));
 
-      connect(ui->cabinets_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customCabinetMenuRequested(QPoint)));
-      //Таблица Время
-      connect(dialogLessonTime, SIGNAL(sendDataLessonTime(LessonTime)), this, SLOT(receiveDataLessonTime(LessonTime)));
+    connect(ui->cabinets_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customCabinetMenuRequested(QPoint)));
+    //Таблица Время
+    connect(dialogLessonTime, SIGNAL(sendDataLessonTime(LessonTime)), this, SLOT(receiveDataLessonTime(LessonTime)));
 
-      connect(dialogLessonTime, SIGNAL(sendEditDataLessonTime(LessonTime)), this,SLOT(receiveEditDataLessonTime(LessonTime)));
+    connect(dialogLessonTime, SIGNAL(sendEditDataLessonTime(LessonTime)), this,SLOT(receiveEditDataLessonTime(LessonTime)));
 
-      connect(ui->time_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customTimeMenuRequested(QPoint)));
-      //connect(this,SIGNAL(sendSelectionCabinet(Cabinet)),dialogConfirmCabinet,SLOT(receiveSelectionCabinet(Cabinet)));
+    connect(ui->time_table,SIGNAL(customContextMenuRequested(QPoint)),this,SLOT(customTimeMenuRequested(QPoint)));
+    //connect(this,SIGNAL(sendSelectionCabinet(Cabinet)),dialogConfirmCabinet,SLOT(receiveSelectionCabinet(Cabinet)));
 
-      //    qDebug() << "Кабинеты: " << endl;
-      //    for (auto it = this->repoCabinets.begin(), end = this->repoCabinets.end(); it < end; ++it) {
-      //        auto element = *it;
-      //        qDebug() << element.toString() << endl;
-      //    }
+    //    qDebug() << "Кабинеты: " << endl;
+    //    for (auto it = this->repoCabinets.begin(), end = this->repoCabinets.end(); it < end; ++it) {
+    //        auto element = *it;
+    //        qDebug() << element.toString() << endl;
+    //    }
 
-      //    qDebug() << endl << "Время: " << endl;
-      //    for (auto it = this->repoLessonsTimes.begin(), end = this->repoLessonsTimes.end(); it < end; ++it) {
-      //        auto element = *it;
-      //        qDebug() << element.toString() << endl;
-      //    }
+    //    qDebug() << endl << "Время: " << endl;
+    //    for (auto it = this->repoLessonsTimes.begin(), end = this->repoLessonsTimes.end(); it < end; ++it) {
+    //        auto element = *it;
+    //        qDebug() << element.toString() << endl;
+    //    }
 
-      //    qDebug() << endl << "Группы: " << endl;
-      //    for (auto it = this->repoGroupStudents.begin(), end = this->repoGroupStudents.end(); it < end; ++it) {
-      //        auto element = *it;
-      //        qDebug() << element.toString() << endl;
-      //    }
+    //    qDebug() << endl << "Группы: " << endl;
+    //    for (auto it = this->repoGroupStudents.begin(), end = this->repoGroupStudents.end(); it < end; ++it) {
+    //        auto element = *it;
+    //        qDebug() << element.toString() << endl;
+    //    }
 
-      //    qDebug() << endl << "Дисциплины: " << endl;
-      //    for (auto it = this->repoSubjects.begin(), end = this->repoSubjects.end(); it < end; ++it) {
-      //        auto element = *it;
-      //        qDebug() << element.toString() << endl;
-      //    }
+    //    qDebug() << endl << "Дисциплины: " << endl;
+    //    for (auto it = this->repoSubjects.begin(), end = this->repoSubjects.end(); it < end; ++it) {
+    //        auto element = *it;
+    //        qDebug() << element.toString() << endl;
+    //    }
 
-      //    auto s = this->repoSubjects.getById(2);
-      //    qDebug() << "Получение по id" << endl;
-      //    qDebug() << s.toString() << endl;
+    //    auto s = this->repoSubjects.getById(2);
+    //    qDebug() << "Получение по id" << endl;
+    //    qDebug() << s.toString() << endl;
 
-      //    qDebug() << "Получение по параметрам" << endl;
-      //    for (auto e : this->repoSubjects.getByParameters(Subject("йцуйцу"))) {
-      //        qDebug() << e.toString() << endl;
-      //    }
+    //    qDebug() << "Получение по параметрам" << endl;
+    //    for (auto e : this->repoSubjects.getByParameters(Subject("йцуйцу"))) {
+    //        qDebug() << e.toString() << endl;
+    //    }
 
-      //    qDebug() << "Добавление элемента 'Новый элемент'" << endl;
-      //    this->repoSubjects.add(Subject("Новый элемент"));
-      //    qDebug() << endl << "Дисциплины: " << endl;
-      //    for (auto e : this->repoSubjects.getAll()) {
-      //        qDebug() << e.toString() << endl;
-      //    }
+    //    qDebug() << "Добавление элемента 'Новый элемент'" << endl;
+    //    this->repoSubjects.add(Subject("Новый элемент"));
+    //    qDebug() << endl << "Дисциплины: " << endl;
+    //    for (auto e : this->repoSubjects.getAll()) {
+    //        qDebug() << e.toString() << endl;
+    //    }
 
-      //    qDebug() << "Изменение элемента 'Новый элемент' на 'Измененный элемент'" << endl;
-      //    this->repoSubjects.update(4, Subject("Измененный элемент"));
-      //    qDebug() << endl << "Дисциплины: " << endl;
-      //    for (auto e : this->repoSubjects.getAll()) {
-      //        qDebug() << e.toString() << endl;
-      //    }
+    //    qDebug() << "Изменение элемента 'Новый элемент' на 'Измененный элемент'" << endl;
+    //    this->repoSubjects.update(4, Subject("Измененный элемент"));
+    //    qDebug() << endl << "Дисциплины: " << endl;
+    //    for (auto e : this->repoSubjects.getAll()) {
+    //        qDebug() << e.toString() << endl;
+    //    }
 
-      //    qDebug() << "Удаление элемента 'Измененный элемент'" << endl;
-      //    this->repoSubjects.remove(4);
-      //    qDebug() << endl << "Дисциплины: " << endl;
-      //    for (auto e : this->repoSubjects.getAll()) {
-      //        qDebug() << e.toString() << endl;
-      //    }
+    //    qDebug() << "Удаление элемента 'Измененный элемент'" << endl;
+    //    this->repoSubjects.remove(4);
+    //    qDebug() << endl << "Дисциплины: " << endl;
+    //    for (auto e : this->repoSubjects.getAll()) {
+    //        qDebug() << e.toString() << endl;
+    //    }
 
 
-      // Виджет визуализации графа
-      VisualizationWidget *w = new VisualizationWidget();
-      ui->tabWidget->addTab(w,"Визуализация графа");
+    // Виджет визуализации графа
+    VisualizationWidget *w = new VisualizationWidget();
+    ui->tabWidget->addTab(w,"Визуализация графа");
 }
 
 MainWindow::~MainWindow()
@@ -184,17 +184,17 @@ void MainWindow::slotSubjectRemoveRecord()
 }
 
 void MainWindow::receiveDataSubject(Subject subject){
-     repoSubjects.add(subject);
-     list_s->append(subject.name);
+    repoSubjects.add(subject);
+    list_s->append(subject.name);
 
-     int index =ui->subject_table->currentIndex().row()+1;
-     subjectModel->insertRow(index);
+    int index =ui->subject_table->currentIndex().row()+1;
+    subjectModel->insertRow(index);
 
-     const QModelIndex indexNext=subjectModel->index(index,0);
-     subjectModel->setData(indexNext,QVariant(subject.name));
-     visualRows(ui->subject_table,subjectModel);
-     ui->subject_table->setCurrentIndex(indexNext);
- }
+    const QModelIndex indexNext=subjectModel->index(index,0);
+    subjectModel->setData(indexNext,QVariant(subject.name));
+    visualRows(ui->subject_table,subjectModel);
+    ui->subject_table->setCurrentIndex(indexNext);
+}
 void MainWindow::receiveEditDataSubject(Subject subject){
 
     int index =ui->subject_table->selectionModel()->currentIndex().row();
@@ -248,17 +248,17 @@ void MainWindow::slotGroupRemoveRecord()
 
 
 void MainWindow::receiveDataGroup(GroupStudents group){
-     repoGroupStudents.add(group);
-     list_gr->append(group.name);
+    repoGroupStudents.add(group);
+    list_gr->append(group.name);
 
-     int index =ui->group_table->currentIndex().row()+1;
-     groupModel->insertRow(index);
+    int index =ui->group_table->currentIndex().row()+1;
+    groupModel->insertRow(index);
 
-     const QModelIndex indexNext=groupModel->index(index,0);
-     groupModel->setData(indexNext,QVariant(group.name));
-     visualRows(ui->group_table,groupModel);
-     ui->group_table->setCurrentIndex(indexNext);
- }
+    const QModelIndex indexNext=groupModel->index(index,0);
+    groupModel->setData(indexNext,QVariant(group.name));
+    visualRows(ui->group_table,groupModel);
+    ui->group_table->setCurrentIndex(indexNext);
+}
 void MainWindow::receiveEditDataGroup(GroupStudents group){
 
     int index =ui->group_table->selectionModel()->currentIndex().row();
@@ -272,21 +272,21 @@ void MainWindow::receiveEditDataGroup(GroupStudents group){
 
 void MainWindow::customGroupMenuRequested(const QPoint &pos){
 
-   QMenu *menu = new QMenu(this);
+    QMenu *menu = new QMenu(this);
 
-   QAction *addGroup = new QAction(("Добавить"),this);
-   QAction *editGroup = new QAction(("Редактировать"),this);
-   QAction *deleteGroup = new QAction(("Удалить"),this);
+    QAction *addGroup = new QAction(("Добавить"),this);
+    QAction *editGroup = new QAction(("Редактировать"),this);
+    QAction *deleteGroup = new QAction(("Удалить"),this);
 
-   connect(addGroup, SIGNAL(triggered()),this,SLOT(slotGroupAddRecord()));
-   connect(editGroup, SIGNAL(triggered()),this,SLOT(slotGroupEditRecord()));
-   connect(deleteGroup, SIGNAL(triggered()),this,SLOT(slotGroupRemoveRecord()));
+    connect(addGroup, SIGNAL(triggered()),this,SLOT(slotGroupAddRecord()));
+    connect(editGroup, SIGNAL(triggered()),this,SLOT(slotGroupEditRecord()));
+    connect(deleteGroup, SIGNAL(triggered()),this,SLOT(slotGroupRemoveRecord()));
 
-   menu->addAction(addGroup);
-   menu->addAction(editGroup);
-   menu->addAction(deleteGroup);
+    menu->addAction(addGroup);
+    menu->addAction(editGroup);
+    menu->addAction(deleteGroup);
 
-   menu->popup(ui->group_table->viewport()->mapToGlobal(pos));
+    menu->popup(ui->group_table->viewport()->mapToGlobal(pos));
 
 
 }
@@ -296,7 +296,7 @@ void MainWindow::slotCabinetAddRecord()
     dialogCabinet->addTitle();
     dialogCabinet->clearLineEdit();
     dialogCabinet->show();
- }
+}
 void MainWindow::slotCabinetEditRecord()
 {
     dialogCabinet->show();
@@ -312,16 +312,16 @@ void MainWindow::slotCabinetRemoveRecord()
 }
 void MainWindow::receiveDataCabinet(Cabinet cabinet){
 
-     QString s = QString("%1%2%3").arg(cabinet.building).arg(cabinet.floor).arg(cabinet.number);
-     repoCabinets.add(cabinet);
-     list_cb->append(s);
-     int index =ui->cabinets_table->currentIndex().row()+1;
+    QString s = QString("%1%2%3").arg(cabinet.building).arg(cabinet.floor).arg(cabinet.number);
+    repoCabinets.add(cabinet);
+    list_cb->append(s);
+    int index =ui->cabinets_table->currentIndex().row()+1;
 
-     cabinetModel->insertRow(index);
-     const QModelIndex indexNext=cabinetModel->index(index,0);
-     cabinetModel->setData(indexNext,QVariant(s));
-     visualRows(ui->cabinets_table,cabinetModel);
-     ui->cabinets_table->setCurrentIndex(indexNext);
+    cabinetModel->insertRow(index);
+    const QModelIndex indexNext=cabinetModel->index(index,0);
+    cabinetModel->setData(indexNext,QVariant(s));
+    visualRows(ui->cabinets_table,cabinetModel);
+    ui->cabinets_table->setCurrentIndex(indexNext);
 }
 void MainWindow::receiveEditDataCabinet(Cabinet cabinet){
 
@@ -333,7 +333,7 @@ void MainWindow::receiveEditDataCabinet(Cabinet cabinet){
 
     const QModelIndex curSelectIndex=cabinetModel->index(ui->cabinets_table->selectionModel()->currentIndex().row(),0);
     cabinetModel->setData(curSelectIndex,QVariant(s));
-     /*QList<Cabinet> cab_l;
+    /*QList<Cabinet> cab_l;
     cab_l=repCabinet->getAll();
 
     QString s = QString::number(cab_l.back().building)+QString::number(cab_l.back().floor)+QString::number(cab_l.back().number);
@@ -345,8 +345,8 @@ void MainWindow::receiveEditDataCabinet(Cabinet cabinet){
         }
      repoCabinets.update(selectIndex,repCabinet->getById(0));
      list_cb->replace(selectIndex,s);*/
-     //const QModelIndex indexNext=cabinetModel->index(selectIndex,0);
-     //cabinetModel->setData(indexNext,QVariant(s));
+    //const QModelIndex indexNext=cabinetModel->index(selectIndex,0);
+    //cabinetModel->setData(indexNext,QVariant(s));
     //qDebug()<<repCabinet->getById(0).building<<repCabinet->getById(0).floor<<repCabinet->getById(0).number;
     //repoCabinets.update(selectIndex,repCabinet->getById(0));
 
@@ -355,21 +355,21 @@ void MainWindow::receiveEditDataCabinet(Cabinet cabinet){
 
 void MainWindow::customCabinetMenuRequested(const QPoint &pos){
 
-   QMenu *menu = new QMenu(this);
+    QMenu *menu = new QMenu(this);
 
-   QAction *addCabinet = new QAction(("Добавить"),this);
-   QAction *editCabinet = new QAction(("Редактировать"),this);
-   QAction *deleteCabinet = new QAction(("Удалить"),this);
+    QAction *addCabinet = new QAction(("Добавить"),this);
+    QAction *editCabinet = new QAction(("Редактировать"),this);
+    QAction *deleteCabinet = new QAction(("Удалить"),this);
 
-   connect(addCabinet, SIGNAL(triggered()),this,SLOT(slotCabinetAddRecord()));
-   connect(editCabinet, SIGNAL(triggered()),this,SLOT(slotCabinetEditRecord()));
-   connect(deleteCabinet, SIGNAL(triggered()),this,SLOT(slotCabinetRemoveRecord()));
+    connect(addCabinet, SIGNAL(triggered()),this,SLOT(slotCabinetAddRecord()));
+    connect(editCabinet, SIGNAL(triggered()),this,SLOT(slotCabinetEditRecord()));
+    connect(deleteCabinet, SIGNAL(triggered()),this,SLOT(slotCabinetRemoveRecord()));
 
-   menu->addAction(addCabinet);
-   menu->addAction(editCabinet);
-   menu->addAction(deleteCabinet);
+    menu->addAction(addCabinet);
+    menu->addAction(editCabinet);
+    menu->addAction(deleteCabinet);
 
-   menu->popup(ui->cabinets_table->viewport()->mapToGlobal(pos));
+    menu->popup(ui->cabinets_table->viewport()->mapToGlobal(pos));
 }
 
 void MainWindow::slotTimeAddRecord()
@@ -377,7 +377,7 @@ void MainWindow::slotTimeAddRecord()
     dialogLessonTime->show();
     dialogLessonTime->addTitle();
     dialogLessonTime->clearLineEdit();
- }
+}
 void MainWindow::slotTimeEditRecord()
 {
     dialogLessonTime->show();
@@ -414,18 +414,18 @@ void MainWindow::customTimeMenuRequested(const QPoint &pos){
 void MainWindow::receiveDataLessonTime(LessonTime lessonTime){
 
 
-     QString s = QString("Четность:%1 %2 Время:%3").arg(lessonTime.parity).arg(receiveDay[lessonTime.dayOfWeek]).arg(lessonTime.time.toString());
+    QString s = QString("Четность:%1 %2 Время:%3").arg(lessonTime.parity).arg(receiveDay[lessonTime.dayOfWeek]).arg(lessonTime.time.toString());
 
-     repoLessonTime.add(lessonTime);
-     list_tm->append(s);
-     int index =ui->time_table->currentIndex().row()+1;
+    repoLessonTime.add(lessonTime);
+    list_tm->append(s);
+    int index =ui->time_table->currentIndex().row()+1;
 
-     timeModel->insertRow(index);
-     const QModelIndex indexNext=timeModel->index(index,0);
-     timeModel->setData(indexNext,QVariant(s));
-     visualRows(ui->time_table,timeModel);
-     ui->time_table->setCurrentIndex(indexNext);
-     qDebug()<<repoLessonTime.getById(0).dayOfWeek<<repoLessonTime.getById(0).time<<repoLessonTime.getById(0).parity;
+    timeModel->insertRow(index);
+    const QModelIndex indexNext=timeModel->index(index,0);
+    timeModel->setData(indexNext,QVariant(s));
+    visualRows(ui->time_table,timeModel);
+    ui->time_table->setCurrentIndex(indexNext);
+    qDebug()<<repoLessonTime.getById(0).dayOfWeek<<repoLessonTime.getById(0).time<<repoLessonTime.getById(0).parity;
 
 }
 void MainWindow::receiveEditDataLessonTime(LessonTime lessonTime){
@@ -443,7 +443,7 @@ void MainWindow::receiveEditDataLessonTime(LessonTime lessonTime){
 
 void MainWindow::on_addTimeButton_clicked()
 {
-   dialogLessonTime->show();
+    dialogLessonTime->show();
 }
 
 void MainWindow::on_removeTimeButton_clicked()
@@ -487,7 +487,7 @@ void MainWindow::on_group_table_clicked(const QModelIndex &index)
 
     QList<GroupStudents> list_groups;
     GroupStudents  stGrp= GroupStudents();
-     GroupStudents  repoGrp= GroupStudents();
+    GroupStudents  repoGrp= GroupStudents();
 
     list_groups = this->repoGroupStudents.getAll();
 
@@ -534,10 +534,10 @@ void MainWindow::on_cabinets_table_clicked(const QModelIndex &index)
     foreach (Cabinet cabinet, cabinets_l) {
         qDebug()<<cabinet.building<<"\t"<<cabinet.floor<<"\t"<<cabinet.number<<"\n";
     }
-     for (int i = 0;i<list_cb->size();i++) {
+    for (int i = 0;i<list_cb->size();i++) {
         qDebug()<<list_cb->at(i);
     }
-        qDebug()<<"Индекс по нажатию"<<index.row();
+    qDebug()<<"Индекс по нажатию"<<index.row();
 }
 
 void MainWindow::loadReps()

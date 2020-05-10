@@ -10,29 +10,29 @@
 #include<models/subject.h>
 #include <gui/mainwindow.h>
 
- DialogSubjectWindow::DialogSubjectWindow(QWidget* parent): QDialog(parent)
+DialogSubjectWindow::DialogSubjectWindow(QWidget* parent): QDialog(parent)
 {
-   flag = false;
+    flag = false;
 
-   applyButton = new QPushButton("OK");
-   applyButton->setMaximumWidth(80);
+    applyButton = new QPushButton("OK");
+    applyButton->setMaximumWidth(80);
 
-   formLayout = new QFormLayout();
-   btnLayout=new QVBoxLayout();
-   btnLayout->addWidget(applyButton);
+    formLayout = new QFormLayout();
+    btnLayout=new QVBoxLayout();
+    btnLayout->addWidget(applyButton);
 
-   subjectLineEdit = new QLineEdit();
+    subjectLineEdit = new QLineEdit();
 
-   formLayout->addRow("Предмет",subjectLineEdit);
-   formLayout->addWidget(applyButton);
+    formLayout->addRow("Предмет",subjectLineEdit);
+    formLayout->addWidget(applyButton);
 
-   setLayout(formLayout);
-   connect(applyButton,SIGNAL(clicked()),this,SLOT(apply_clicked()));
- }
+    setLayout(formLayout);
+    connect(applyButton,SIGNAL(clicked()),this,SLOT(apply_clicked()));
+}
 
- void DialogSubjectWindow::clearLineEdit(){
-       subjectLineEdit->clear();
- }
+void DialogSubjectWindow::clearLineEdit(){
+    subjectLineEdit->clear();
+}
 
 
 DialogSubjectWindow::~DialogSubjectWindow(){
@@ -41,15 +41,15 @@ DialogSubjectWindow::~DialogSubjectWindow(){
 
 void DialogSubjectWindow::apply_clicked(){
 
-if (!flag){
+    if (!flag){
 
-    emit sendDataSubject(Subject (subjectLineEdit->text()));
-    this->close();
+        emit sendDataSubject(Subject (subjectLineEdit->text()));
+        this->close();
 
- } else if (flag){
-     emit sendEditDataSubject(Subject(subjectLineEdit->text()));
-    this->close();
- }
+    } else if (flag){
+        emit sendEditDataSubject(Subject(subjectLineEdit->text()));
+        this->close();
+    }
     flag = false;
 }
 

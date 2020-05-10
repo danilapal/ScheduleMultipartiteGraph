@@ -32,6 +32,7 @@ SOURCES += \
     gui/dialogSubjectWindow.cpp \
     gui/dialogWindowConfrimEditRow.cpp \
     gui/dialogWindowEmptyRow.cpp \
+    gui/dialoggraphfilter.cpp \
     gui/edge.cpp \
     gui/graphwidget.cpp \
     gui/node.cpp \
@@ -58,6 +59,7 @@ HEADERS += \
     gui/dialogSubjectWindow.h \
     gui/dialogWindowConfrimEditRow.h \
     gui/dialogWindowEmptyRow.h \
+    gui/dialoggraphfilter.h \
     gui/edge.h \
     gui/graphwidget.h \
     gui/node.h \

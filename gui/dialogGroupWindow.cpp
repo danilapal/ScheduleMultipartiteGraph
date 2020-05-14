@@ -10,30 +10,30 @@
 #include<models/groupstudents.h>
 #include <gui/mainwindow.h>
 
-DialogGroupWindow::DialogGroupWindow(QWidget* parent): QDialog(parent)
+ DialogGroupWindow::DialogGroupWindow(QWidget* parent): QDialog(parent)
 {
-    flag = false;
+   flag = false;
 
-    applyButton = new QPushButton("OK");
-    applyButton->setMaximumWidth(80);
+   applyButton = new QPushButton("OK");
+   applyButton->setMaximumWidth(80);
 
 
-    formLayout = new QFormLayout();
-    btnLayout=new QVBoxLayout();
-    btnLayout->addWidget(applyButton);
+   formLayout = new QFormLayout();
+   btnLayout=new QVBoxLayout();
+   btnLayout->addWidget(applyButton);
 
-    groupLineEdit = new QLineEdit();
+   groupLineEdit = new QLineEdit();
 
-    formLayout->addRow("Группа",groupLineEdit);
-    formLayout->addWidget(applyButton);
+   formLayout->addRow("Группа",groupLineEdit);
+   formLayout->addWidget(applyButton);
 
-    setLayout(formLayout);
-    connect(applyButton,SIGNAL(clicked()),this,SLOT(apply_clicked()));
-}
+   setLayout(formLayout);
+   connect(applyButton,SIGNAL(clicked()),this,SLOT(apply_clicked()));
+ }
 
-void DialogGroupWindow::clearLineEdit(){
-    groupLineEdit->clear();
-}
+ void DialogGroupWindow::clearLineEdit(){
+       groupLineEdit->clear();
+ }
 
 
 DialogGroupWindow::~DialogGroupWindow(){
@@ -41,13 +41,13 @@ DialogGroupWindow::~DialogGroupWindow(){
 }
 
 void DialogGroupWindow::apply_clicked(){
-    if (!flag){
-        emit sendDataGroup(GroupStudents(groupLineEdit->text()));
-        this->close();
-    } else if (flag){
-        emit sendEditDataGroup(GroupStudents(groupLineEdit->text()));
-        this->close();
-    }
+if (!flag){
+    emit sendDataGroup(GroupStudents(groupLineEdit->text()));
+    this->close();
+ } else if (flag){
+     emit sendEditDataGroup(GroupStudents(groupLineEdit->text()));
+    this->close();
+ }
     flag = false;
 }
 

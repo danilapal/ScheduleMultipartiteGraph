@@ -23,16 +23,16 @@ DEFINES += QT_DEPRECATED_WARNINGS
 #DEFINES += QT_DISABLE_DEPRECATED_BEFORE=0x060000    # disables all the APIs deprecated before Qt 6.0.0
 
 CONFIG += c++11
-###SUBDIRS = \ test/TestForTests/TestForTests.pro
+
 SOURCES += \
-    exceptions/graphexception.cpp \
+    gui/dialogAddlinkGroupSubject.cpp \
     gui/dialogCabinetWindow.cpp \
     gui/dialogGroupWindow.cpp \
     gui/dialogLessonTimeWindow.cpp \
+    gui/dialogLinkGroupSubjectWindow.cpp \
     gui/dialogSubjectWindow.cpp \
     gui/dialogWindowConfrimEditRow.cpp \
     gui/dialogWindowEmptyRow.cpp \
-    gui/dialoggraphfilter.cpp \
     gui/edge.cpp \
     gui/graphwidget.cpp \
     gui/node.cpp \
@@ -47,19 +47,19 @@ SOURCES += \
     models/repository/repository.cpp \
     models/repository/repositorytemplate.cpp \
     models/router.cpp \
-    models/table_model.cpp \
-    models/subject.cpp
+    models/subject.cpp \
+    models/tablelistmodel.cpp
 
 
 HEADERS += \
-    exceptions/graphexception.h \
+    gui/dialogAddlinkGroupSubject.h \
     gui/dialogCabinetWindow.h \
     gui/dialogGroupWindow.h \
     gui/dialogLessonTimeWindow.h \
+    gui/dialogLinkGroupSubjectWindow.h \
     gui/dialogSubjectWindow.h \
     gui/dialogWindowConfrimEditRow.h \
     gui/dialogWindowEmptyRow.h \
-    gui/dialoggraphfilter.h \
     gui/edge.h \
     gui/graphwidget.h \
     gui/node.h \
@@ -69,14 +69,13 @@ HEADERS += \
     models/cabinet.h \
     models/linkgroupsubject.h \
     models/repository/repositorytemplate.h \
-    models/table_model.h \
     models/groupstudents.h \
     models/lessontime.h \
     models/repository/repository.h \
     models/router.h \
-    models/table_model.h \
     models/router.h \
-    models/subject.h
+    models/subject.h \
+    models/tablelistmodel.h
 
 
 
@@ -85,4 +84,3 @@ FORMS += \
 
 # Default rules for deployment.
  INSTALLS += target
-

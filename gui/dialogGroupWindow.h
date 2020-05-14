@@ -2,8 +2,8 @@
 #define DIALOGGROUPWINDOW_H
 #include <QDialog>
 #include <QLabel>
-#include <QLineEdit>
-#include <QFormLayout>
+#include<QLineEdit>
+#include<QFormLayout>
 #include <models/repository/repositorytemplate.h>
 #include <models/groupstudents.h>
 class DialogGroupWindow: public QDialog{
@@ -16,14 +16,13 @@ public:
     void editTitle();
     void addTitle();
     void outputEditData(GroupStudents);
-
 signals:
     void sendDataGroup(GroupStudents);
     void sendEditDataGroup(GroupStudents);
 private slots:
     void apply_clicked();
 public slots:
-private:
+    private:
     QFormLayout *formLayout;
     QVBoxLayout *btnLayout;
 

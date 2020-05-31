@@ -8,6 +8,7 @@
 #include <models/subject.h>
 #include <models/repository/repositorytemplate.h>
 #include <models/linkgroupsubject.h>
+#include <models/linkgroupsubject.h>
 
 class DialogAddLinkGroupSubject : public QDialog{
     Q_OBJECT
@@ -22,9 +23,6 @@ public:
     ~DialogAddLinkGroupSubject();
 
 private:
-
-
-
 
     bool changeAcH=false;
     RepositoryTemplate<GroupStudents> receiveRepGroup;

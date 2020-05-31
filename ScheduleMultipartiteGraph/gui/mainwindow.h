@@ -8,11 +8,10 @@
 #include "models/groupstudents.h"
 #include "models/lessontime.h"
 #include "models/subject.h"
+#include "models/tablelistmodel.h"
+
 #include "models/linkgroupsubject.h"
 
-#include "models/repository/repositorytemplate.h"
-
-#include "models/tablelistmodel.h"
 
 #include "dialogSubjectWindow.h"
 #include "dialogGroupWindow.h"
@@ -21,9 +20,7 @@
 #include "dialogWindowConfrimEditRow.h"
 #include "dialogLessonTimeWindow.h"
 #include "dialogLinkGroupSubjectWindow.h"
-#include "dialogSaveAs.h"
 
-#include "visualizationwidget.h"
 
 
 #include <QTableView>
@@ -47,11 +44,9 @@ public:
     void initStorage();
     ~MainWindow();
 private:
-
     QString dirStorage = "storage";
 signals:
     void sendSelectionCabinet(Cabinet cabinet);
-
 private slots:
     //void on_tabWidget_currentChanged(int index);
     //Предметы
@@ -109,43 +104,15 @@ private slots:
 
     void receiveEditDataLessonTime(LessonTime);
 
-
-
     void on_subject_table_clicked(const QModelIndex &index);
 
     void on_group_table_clicked(const QModelIndex &index);
 
     void on_saveFile_triggered();
 
-    void on_saveAs_triggered();
-
-    void on_openFile_triggered();
-
-    void on_newFile_triggered();
-
-    void on_deleteFile_triggered();
-
-    void on_cabinets_table_clicked(const QModelIndex &index);
-
-    // получение имя нового сохраненного файла
-    void  receiveFileName(QString,QString,bool);
-
-    //получение названия файла для открытия
-    void receiveOpenFileName(QString,QString);
-
-    //получение имени удаляемого файла
-    void receiveDeleteFileName(QString, QString);
-
-
+    void on_cabinets_table_clicked(const QModelIndex &index);    
 public slots:
 private:
-    //имя файла с которым работаем
-    QString curPathFile;
-    //флаг для нахождения одинаковых файлов
-    bool idenFlag = false;
-
-    QList<int> dlindexSb;
-    QList<int> dlindexGr;
 
     QHash<int,QString> receiveDay;
 
@@ -178,21 +145,6 @@ private:
     RepositoryTemplate<LessonTime> repoLessonTime;
     RepositoryTemplate<Subject> repoSubjects;
     RepositoryTemplate<LinkGroupSubject> repoLinkGroupSubject;
-
-    //метод загрузки модели по файлу
-    void loadModelonRepo();
-    //диалоговое окно работы с файлами
-    DialogSaveAs *dSaveAs;
-    //очищение TableView
-    void clearTableView(QTableView*, TableListModel*);
-    //загрузка по выбранному файлу
-    void loadOnSelectedFile(QString,QString);
-    //очищение моделей
-    void clearModel();
-    //очищение репозиториев
-    void clearRepository();
-
-
 };
 
 #endif // MAINWINDOW_H

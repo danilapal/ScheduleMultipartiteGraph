@@ -40,7 +40,6 @@ DialogAddLinkGroupSubject::~DialogAddLinkGroupSubject(){
 }
 void DialogAddLinkGroupSubject::addLinkGroupSubject(int indexGroup,int indexSubject,
                                    RepositoryTemplate<GroupStudents> repoGroupStud, RepositoryTemplate<Subject> repoSubject ){
-
     indexRGroup = indexGroup;
     indexRSub = indexSubject;
 
@@ -79,7 +78,7 @@ void DialogAddLinkGroupSubject::apply_clicked(){
   int academic= academHours->text().toInt();
 
   if (!changeAcH){
-     emit sendRepoGroupSubject(LinkGroupSubject(receiveRepGroup.getByIndex(indexRGroup).id,
+     emit sendRepoGroupSubject(LinkGroupSubject(receiveRepGroup.getById(receiveRepGroup.getByIndex(indexRGroup).id).id,
      receiveRepSubject.getById(receiveRepSubject.getByIndex(indexRSub).id).id, academic),receiveRepSubject.getById(receiveRepSubject.getByIndex(indexRSub).id).name);
    }
    else
@@ -115,16 +114,73 @@ void DialogAddLinkGroupSubject::changeTitle(){
 
 void DialogAddLinkGroupSubject::editDataRepoGroup(RepositoryTemplate<GroupStudents> repoGroupStudents){
     //Проверка на изменения(удаление, добавление, редактирование) репозиториев в главной вкладке
-     receiveRepGroup=repoGroupStudents;
+    if (receiveRepGroup.getAmount()==0){
+        for (int i =0; i<repoGroupStudents.getAmount(); i++){
+            receiveRepGroup.add(repoGroupStudents.getByIndex(i));
+        }
+
+    }else
+          if (repoGroupStudents.getAmount()>receiveRepGroup.getAmount()){
+            int raz = repoGroupStudents.getAmount()-receiveRepGroup.getAmount();
+            int addE = receiveRepGroup.getAmount();
+            for (int i =0; i<raz; i++){
+                receiveRepGroup.add(repoGroupStudents.getByIndex(i));
+                ++addE;
+            }
+    }else
+          if (repoGroupStudents.getAmount()<receiveRepGroup.getAmount()){
+            int raz = receiveRepGroup.getAmount()-repoGroupStudents.getAmount();
+            int delE = receiveRepGroup.getAmount()-1;
+            for (int i =0; i<raz; i++){
+                receiveRepGroup.removeByIndex(delE);
+            --delE;
+            }
+    }
+    else
+         if (repoGroupStudents.getAmount()==receiveRepGroup.getAmount()){
+            for (int i =0; i<repoGroupStudents.getAmount(); i++){
+                if (repoGroupStudents.getById(repoGroupStudents.getByIndex(i).id).name!=receiveRepGroup.getById(receiveRepGroup.getByIndex(i).id).name){
+                    receiveRepGroup.update(receiveRepGroup.getById(receiveRepGroup.getByIndex(i).id).id,repoGroupStudents.getById(repoGroupStudents.getByIndex(i).id).name);
+                }
+            }
+          }
 }
 
 void DialogAddLinkGroupSubject::editDataRepoSubject(RepositoryTemplate<Subject> repoSubjects){
     //Проверка на изменения(удаление, добавление, редактирование) репозиториев в главной вкладке
-  receiveRepSubject=repoSubjects;
+    if (receiveRepSubject.getAmount()==0){
+        for (int i =0; i<repoSubjects.getAmount(); i++){
+            receiveRepSubject.add(repoSubjects.getByIndex(i));
+        }
+
+    }else
+          if (repoSubjects.getAmount()>receiveRepSubject.getAmount()){
+            int raz = repoSubjects.getAmount()-receiveRepSubject.getAmount();
+            int addE = receiveRepSubject.getAmount();
+            for (int i =0; i<raz; i++){
+                receiveRepSubject.add(repoSubjects.getByIndex(addE));
+                ++addE;
+            }
+    }else
+          if (repoSubjects.getAmount()<receiveRepSubject.getAmount()){
+            int raz = receiveRepSubject.getAmount()-repoSubjects.getAmount();
+            int delE = receiveRepSubject.getAmount()-1;
+            for (int i =0; i<raz; i++){
+                receiveRepSubject.removeByIndex(delE);
+            --delE;
+            }
+    }
+    else
+         if (repoSubjects.getAmount()==receiveRepSubject.getAmount()){
+            for (int i =0; i<repoSubjects.getAmount(); i++){
+                if (repoSubjects.getById(repoSubjects.getByIndex(i).id).name!=receiveRepSubject.getById(receiveRepSubject.getByIndex(i).id).name){
+                    receiveRepSubject.update(receiveRepSubject.getById(receiveRepSubject.getByIndex(i).id).id,repoSubjects.getById(repoSubjects.getByIndex(i).id).name);
+                }
+            }
+          }
   }
 
 void DialogAddLinkGroupSubject::closeEvent(QCloseEvent *){
     academHours->clear();
-
 }
 
